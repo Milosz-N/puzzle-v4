@@ -1,15 +1,20 @@
 import "../components/scss/settings.scss";
-function Settings({ card, setCard, image, setImage, startGame, setStartGame, setStartCount }) {
+function Settings({
+  card,
+  setCard,
+  image,
+  setImage,
+  startGame,
+  setStartGame,
+  setStartCount,
+}) {
   const images = importAll(
     require.context("../components/img", false, /\.(|jpe?g|)$/)
   );
   function importAll(r) {
     return r.keys().map(r);
   }
- 
-  const createPuzzle = (x) => {
-    console.log(x);
-  };
+
   return (
     <>
       <>
@@ -35,9 +40,8 @@ function Settings({ card, setCard, image, setImage, startGame, setStartGame, set
         <button
           className="btn btn-default"
           onClick={() => {
-            createPuzzle(image);
             setStartGame(true);
-            setStartCount(true)
+            setStartCount(true);
           }}
         >
           Submit
