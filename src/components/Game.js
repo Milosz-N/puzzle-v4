@@ -10,24 +10,54 @@ function Game({image, startGame }) {
     const button = document.querySelectorAll(".part");
     if (arr.length == 0 || e.target.id != arr[arr.length - 1]) {
       arr.push(e.target.id);
+      e.target.disabled = true;
+      console.log(e.target)
       if (arr.length % 2 === 0) {
-        for (Element of button) {
-          if (Element.id == arr[arr.length - 1]) {
-            Element.setAttribute("id", `${arr[arr.length - 2]}`);
-            let x = Number.parseInt(arr[arr.length - 2][0]);
-            let y = Number.parseInt(arr[arr.length - 2][2]);
-            Element.style.backgroundPositionY = `${720 - y * 144}px`;
-            Element.style.backgroundPositionX = `${1280 - x * 256}px`;
-          } else if (Element.id == arr[arr.length - 2]) {
-            // console.log("pierwszy klikniety element")
-            Element.setAttribute("id", `${arr[arr.length - 1]}`);
-            // console.log(Element.style.backgroundPositionX);
-            let x = Number.parseInt(arr[arr.length - 1][0]);
-            let y = Number.parseInt(arr[arr.length - 1][2]);
-            Element.style.backgroundPositionY = `${720 - y * 144}px`;
-            Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+        const disabled = document.querySelectorAll(
+          `.part[disabled]`
+        );
+        console.log(disabled)
+          for(Element of disabled){
+            if (Element.id == arr[arr.length - 1]) {
+              Element.setAttribute("id", `${arr[arr.length - 2]}`);
+              let x = Number.parseInt(arr[arr.length - 2][0]);
+              let y = Number.parseInt(arr[arr.length - 2][2]);
+              Element.style.backgroundPositionY = `${720 - y * 144}px`;
+              Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+              Element.disabled = false;
+            } else if (Element.id == arr[arr.length - 2]) {
+              // console.log("pierwszy klikniety element")
+              Element.setAttribute("id", `${arr[arr.length - 1]}`);
+              // console.log(Element.style.backgroundPositionX);
+              let x = Number.parseInt(arr[arr.length - 1][0]);
+              let y = Number.parseInt(arr[arr.length - 1][2]);
+              Element.style.backgroundPositionY = `${720 - y * 144}px`;
+              Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+              Element.disabled = false;
+            }
           }
-        }
+          function isBigEnough(element, index, array) {
+            return element.id === element.name
+          }
+          console.log([...button].every(isBigEnough))
+
+        // for (Element of button) {
+        //   if (Element.id == arr[arr.length - 1]) {
+        //     Element.setAttribute("id", `${arr[arr.length - 2]}`);
+        //     let x = Number.parseInt(arr[arr.length - 2][0]);
+        //     let y = Number.parseInt(arr[arr.length - 2][2]);
+        //     Element.style.backgroundPositionY = `${720 - y * 144}px`;
+        //     Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+        //   } else if (Element.id == arr[arr.length - 2]) {
+        //     // console.log("pierwszy klikniety element")
+        //     Element.setAttribute("id", `${arr[arr.length - 1]}`);
+        //     // console.log(Element.style.backgroundPositionX);
+        //     let x = Number.parseInt(arr[arr.length - 1][0]);
+        //     let y = Number.parseInt(arr[arr.length - 1][2]);
+        //     Element.style.backgroundPositionY = `${720 - y * 144}px`;
+        //     Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+        //   }
+        // }
       }
     }
    
