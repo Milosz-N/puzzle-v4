@@ -1,18 +1,12 @@
 import "../components/scss/settings.scss";
 function Settings({
+  images,
   image,
   setImage,
-
   setStartGame,
   setStartCount,
 }) {
-  const images = importAll(
-    require.context("../components/img", false, /\.(|jpe?g|)$/)
-  );
-  function importAll(r) {
-    return r.keys().map(r);
-  }
-
+ 
   return (
     <>
       <>
@@ -20,7 +14,7 @@ function Settings({
           {images.map((i) => (
             <label
               style={{ backgroundImage: `url(${i})` }}
-              className={`${image == i && "borderGreen"}`}
+              className={`${image == i ? "label borderGreen" : 'label'}`}
               key={`${i}`}
               onChange={() => setImage(i)}
             >
@@ -32,20 +26,21 @@ function Settings({
               />
             </label>
           ))}
-        </div>
-      </>
-      <>
-        <button
-          className="btn btn-default"
+ <button
+          className="buttonNewGame"
+          disabled= {!image}
           onClick={() => {
             setStartGame(true);
             setStartCount(true);
           }}
         >
-          Submit
+          Start game
         </button>
+        </div>
+      </>
+      <>
+       
 
-        <h2>{image}</h2>
       </>
     </>
   );

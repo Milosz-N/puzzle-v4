@@ -1,7 +1,7 @@
 import Settings from "./Settings";
 import "../components/scss/game.scss";
 import React, { useState, useEffect } from "react";
-function Game({ image, startGame, setStartCount }) {
+function Game({ image, startGame, setStartCount, setFinish }) {
   const [card, setCard] = useState([]);
   const [cardtest, setCardTest] = useState([]);
   var arr = [];
@@ -11,7 +11,7 @@ function Game({ image, startGame, setStartCount }) {
     if (arr.length == 0 || e.target.id != arr[arr.length - 1]) {
       arr.push(e.target.id);
       e.target.disabled = true;
-      console.log(e.target);
+      // console.log(e.target);
       if (arr.length % 2 === 0) {
         const disabled = document.querySelectorAll(`.part[disabled]`);
         console.log(disabled);
@@ -37,11 +37,11 @@ function Game({ image, startGame, setStartCount }) {
         function isBigEnough(element) {
           return element.id === element.name;
         }
-        console.log([...button].every(isBigEnough));
-        if([...button].every(isBigEnough)){
-          console.log('ulozone');
+        // console.log([...button].every(isBigEnough));
+        if ([...button].every(isBigEnough)) {
+          console.log("ulozone");
           setStartCount(false);
-
+          setFinish(true);
         }
       }
     }
@@ -62,7 +62,6 @@ function Game({ image, startGame, setStartCount }) {
       for (let x = 0; x < 25; x++) {
         var random = Math.floor(Math.random() * arr.length);
         let randomNum = arr[random];
-        // console.log(asd);
         arr = arr.filter(function (e) {
           return e !== arr[random];
         });
