@@ -16,19 +16,16 @@ function Home() {
       return () => clearInterval(myInterval);
     }
   }, [startCount]);
- 
+
   return (
     <>
       <Settings
-        card={card}
-        setCard={setCard}
         image={image}
         setImage={setImage}
-        startGame={startGame}
         setStartGame={setStartGame}
         setStartCount={setStartCount}
       />
-      <Game image={image} startGame={startGame} />
+      <Game image={image} startGame={startGame} setStartCount={setStartCount} />
       <h2>{currentCount}</h2>
       <button
         className="btn btn-default"

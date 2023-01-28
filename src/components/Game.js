@@ -1,7 +1,7 @@
 import Settings from "./Settings";
 import "../components/scss/game.scss";
 import React, { useState, useEffect } from "react";
-function Game({image, startGame }) {
+function Game({ image, startGame, setStartCount }) {
   const [card, setCard] = useState([]);
   const [cardtest, setCardTest] = useState([]);
   var arr = [];
@@ -11,56 +11,40 @@ function Game({image, startGame }) {
     if (arr.length == 0 || e.target.id != arr[arr.length - 1]) {
       arr.push(e.target.id);
       e.target.disabled = true;
-      console.log(e.target)
+      console.log(e.target);
       if (arr.length % 2 === 0) {
-        const disabled = document.querySelectorAll(
-          `.part[disabled]`
-        );
-        console.log(disabled)
-          for(Element of disabled){
-            if (Element.id == arr[arr.length - 1]) {
-              Element.setAttribute("id", `${arr[arr.length - 2]}`);
-              let x = Number.parseInt(arr[arr.length - 2][0]);
-              let y = Number.parseInt(arr[arr.length - 2][2]);
-              Element.style.backgroundPositionY = `${720 - y * 144}px`;
-              Element.style.backgroundPositionX = `${1280 - x * 256}px`;
-              Element.disabled = false;
-            } else if (Element.id == arr[arr.length - 2]) {
-              // console.log("pierwszy klikniety element")
-              Element.setAttribute("id", `${arr[arr.length - 1]}`);
-              // console.log(Element.style.backgroundPositionX);
-              let x = Number.parseInt(arr[arr.length - 1][0]);
-              let y = Number.parseInt(arr[arr.length - 1][2]);
-              Element.style.backgroundPositionY = `${720 - y * 144}px`;
-              Element.style.backgroundPositionX = `${1280 - x * 256}px`;
-              Element.disabled = false;
-            }
+        const disabled = document.querySelectorAll(`.part[disabled]`);
+        console.log(disabled);
+        for (Element of disabled) {
+          if (Element.id == arr[arr.length - 1]) {
+            Element.setAttribute("id", `${arr[arr.length - 2]}`);
+            let x = Number.parseInt(arr[arr.length - 2][0]);
+            let y = Number.parseInt(arr[arr.length - 2][2]);
+            Element.style.backgroundPositionY = `${720 - y * 144}px`;
+            Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+            Element.disabled = false;
+          } else if (Element.id == arr[arr.length - 2]) {
+            // console.log("pierwszy klikniety element")
+            Element.setAttribute("id", `${arr[arr.length - 1]}`);
+            // console.log(Element.style.backgroundPositionX);
+            let x = Number.parseInt(arr[arr.length - 1][0]);
+            let y = Number.parseInt(arr[arr.length - 1][2]);
+            Element.style.backgroundPositionY = `${720 - y * 144}px`;
+            Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+            Element.disabled = false;
           }
-          function isBigEnough(element, index, array) {
-            return element.id === element.name
-          }
-          console.log([...button].every(isBigEnough))
+        }
+        function isBigEnough(element) {
+          return element.id === element.name;
+        }
+        console.log([...button].every(isBigEnough));
+        if([...button].every(isBigEnough)){
+          console.log('ulozone');
+          setStartCount(false);
 
-        // for (Element of button) {
-        //   if (Element.id == arr[arr.length - 1]) {
-        //     Element.setAttribute("id", `${arr[arr.length - 2]}`);
-        //     let x = Number.parseInt(arr[arr.length - 2][0]);
-        //     let y = Number.parseInt(arr[arr.length - 2][2]);
-        //     Element.style.backgroundPositionY = `${720 - y * 144}px`;
-        //     Element.style.backgroundPositionX = `${1280 - x * 256}px`;
-        //   } else if (Element.id == arr[arr.length - 2]) {
-        //     // console.log("pierwszy klikniety element")
-        //     Element.setAttribute("id", `${arr[arr.length - 1]}`);
-        //     // console.log(Element.style.backgroundPositionX);
-        //     let x = Number.parseInt(arr[arr.length - 1][0]);
-        //     let y = Number.parseInt(arr[arr.length - 1][2]);
-        //     Element.style.backgroundPositionY = `${720 - y * 144}px`;
-        //     Element.style.backgroundPositionX = `${1280 - x * 256}px`;
-        //   }
-        // }
+        }
       }
     }
-   
   }
 
   useEffect(() => {
@@ -101,7 +85,6 @@ function Game({image, startGame }) {
           }),
         ]);
       }
-     
     }
   }, [startGame]);
 

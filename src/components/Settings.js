@@ -1,10 +1,8 @@
 import "../components/scss/settings.scss";
 function Settings({
-  card,
-  setCard,
   image,
   setImage,
-  startGame,
+
   setStartGame,
   setStartCount,
 }) {
