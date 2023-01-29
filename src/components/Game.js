@@ -15,7 +15,9 @@ function Game({ image, startGame, setStartCount, setFinish }) {
       if (arr.length % 2 === 0) {
         const disabled = document.querySelectorAll(`.part[disabled]`);
         console.log(disabled);
+
         for (Element of disabled) {
+          
           if (Element.id == arr[arr.length - 1]) {
             Element.setAttribute("id", `${arr[arr.length - 2]}`);
             let x = Number.parseInt(arr[arr.length - 2][0]);
@@ -23,6 +25,7 @@ function Game({ image, startGame, setStartCount, setFinish }) {
             Element.style.backgroundPositionY = `${720 - y * 144}px`;
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
             Element.disabled = false;
+
           } else if (Element.id == arr[arr.length - 2]) {
             // console.log("pierwszy klikniety element")
             Element.setAttribute("id", `${arr[arr.length - 1]}`);

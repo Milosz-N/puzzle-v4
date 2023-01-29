@@ -27,8 +27,17 @@ function Home() {
     document.body.style.backgroundImage =
         "linear-gradient(90deg, #A6DAF5 36%, #CCF998 100%)";
   }, []);
+  // useEffect(() => {
+  //   if(finish){
+  //     setImage(undefined);
+  //     setStartCount(0)
+  //   }
+  // }, [finish]);
  
   console.log(images);
+  //koniec falsz start falsz
+  //koniec falsz, start prawda
+  //koniec prawda start falsz tutaj img ze zdjeciem rozwiazanym i w tle settings
   return (
     <>
     {(!finish && !startGame) &&   <Settings
@@ -38,7 +47,7 @@ function Home() {
         setStartGame={setStartGame}
         setStartCount={setStartCount}
       />}
-    
+      
       <Game image={image} startGame={startGame} setStartCount={setStartCount} setFinish ={setFinish} />
       {/* <h2>{currentCount}</h2> */}
       <button
@@ -49,13 +58,16 @@ function Home() {
       >
         Submit
       </button>
-      {finish && <Settings
+      {finish &&
+      <div className="divFinish">
+      <Settings
       images = {images}
       image={image}
       setImage={setImage}
       setStartGame={setStartGame}
       setStartCount={setStartCount}
       />
+      </div>
     }
     </>
   );
