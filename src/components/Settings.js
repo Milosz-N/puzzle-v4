@@ -5,8 +5,10 @@ function Settings({
   setImage,
   setStartGame,
   setStartCount,
+  setFinish,
+  finish,
+  setCardTest,
 }) {
- 
   return (
     <>
       <>
@@ -14,7 +16,7 @@ function Settings({
           {images.map((i) => (
             <label
               style={{ backgroundImage: `url(${i})` }}
-              className={`${image == i ? "label borderGreen" : 'label'}`}
+              className={`${image == i ? "label borderGreen" : "label"}`}
               key={`${i}`}
               onChange={() => setImage(i)}
             >
@@ -26,22 +28,20 @@ function Settings({
               />
             </label>
           ))}
- <button
-          className="buttonNewGame"
-          disabled= {!image}
-          onClick={() => {
-            setStartGame(true);
-            setStartCount(true);
-          }}
-        >
-          Start game
-        </button>
+          <button
+            className="buttonNewGame"
+            disabled={!image}
+            onClick={() => {
+              setStartGame(true);
+              setStartCount(true);
+              setFinish(false);
+            }}
+          >
+            Start game
+          </button>
         </div>
       </>
-      <>
-       
-
-      </>
+      <></>
     </>
   );
 }

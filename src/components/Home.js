@@ -1,8 +1,9 @@
 import Settings from "./Settings";
 import Game from "./Game";
 import { useState, useEffect } from "react";
+import "../components/scss/main.scss";
 function Home() {
-  const [card, setCard] = useState([]);
+  const [cardtest, setCardTest] = useState([]);
   const [images, setImages] = useState(
     require
       .context("../components/img", false, /\.(|jpe?g|)$/)
@@ -11,9 +12,9 @@ function Home() {
   );
   const [image, setImage] = useState(undefined);
   const [startGame, setStartGame] = useState(false);
-  const [currentCount, setCount] = useState(10);
+  const [currentCount, setCount] = useState(0);
   const [startCount, setStartCount] = useState(false);
-  const [finish, setFinish] = useState(false)
+  const [finish, setFinish] = useState(false);
   const timer = () => setCount(currentCount + 1);
   useEffect(() => {
     if (startCount) {
@@ -23,52 +24,57 @@ function Home() {
       return () => clearInterval(myInterval);
     }
   }, [startCount]);
+
   useEffect(() => {
     document.body.style.backgroundImage =
-        "linear-gradient(90deg, #A6DAF5 36%, #CCF998 100%)";
+      "linear-gradient(90deg, #A6DAF5 36%, #CCF998 100%)";
   }, []);
-  // useEffect(() => {
-  //   if(finish){
-  //     setImage(undefined);
-  //     setStartCount(0)
-  //   }
-  // }, [finish]);
- 
-  console.log(images);
-  //koniec falsz start falsz
-  //koniec falsz, start prawda
-  //koniec prawda start falsz tutaj img ze zdjeciem rozwiazanym i w tle settings
+
   return (
     <>
-    {(!finish && !startGame) &&   <Settings
-      images = {images}
+      {!finish && !startGame && (
+        <Settings
+          images={images}
+          image={image}
+          setImage={setImage}
+          setStartGame={setStartGame}
+          setStartCount={setStartCount}
+          setFinish={setFinish}
+          setCardTest={setCardTest}
+        />
+      )}
+      {!finish && startGame}
+      <Game
         image={image}
-        setImage={setImage}
-        setStartGame={setStartGame}
+        startGame={startGame}
         setStartCount={setStartCount}
-      />}
-      
-      <Game image={image} startGame={startGame} setStartCount={setStartCount} setFinish ={setFinish} />
-      {/* <h2>{currentCount}</h2> */}
-      <button
+        setFinish={setFinish}
+        currentCount={currentCount}
+        cardtest={cardtest}
+        setCardTest={setCardTest}
+      />
+      {/* <button
         className="btn btn-default"
         onClick={() => {
           setStartCount((prevState) => !prevState);
         }}
       >
-        Submit
-      </button>
-      {finish &&
-      <div className="divFinish">
-      <Settings
-      images = {images}
-      image={image}
-      setImage={setImage}
-      setStartGame={setStartGame}
-      setStartCount={setStartCount}
-      />
-      </div>
-    }
+         button do pauzy
+      </button> */}
+      {finish && (
+        <button
+          className="buttonNewGame btnEndGame"
+          disabled={!image}
+          onClick={() => {
+            setStartGame(false);
+            setFinish(false);
+            setCardTest([]);
+            setCount(0);
+          }}
+        >
+          Start new game
+        </button>
+      )}
     </>
   );
 }

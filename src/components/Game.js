@@ -1,50 +1,83 @@
-import Settings from "./Settings";
 import "../components/scss/game.scss";
-import React, { useState, useEffect } from "react";
-function Game({ image, startGame, setStartCount, setFinish }) {
-  const [card, setCard] = useState([]);
-  const [cardtest, setCardTest] = useState([]);
+import React, { useEffect } from "react";
+function Game({
+  image,
+  startGame,
+  setStartCount,
+  setFinish,
+  currentCount,
+  cardtest,
+  setCardTest,
+}) {
   var arr = [];
+  var arrAnimations = [];
 
   function handleSubmit(e) {
     const button = document.querySelectorAll(".part");
     if (arr.length == 0 || e.target.id != arr[arr.length - 1]) {
       arr.push(e.target.id);
+      arrAnimations.push(e.target.name);
+      console.log(arrAnimations);
+
       e.target.disabled = true;
-      // console.log(e.target);
       if (arr.length % 2 === 0) {
         const disabled = document.querySelectorAll(`.part[disabled]`);
-        console.log(disabled);
 
         for (Element of disabled) {
-          
           if (Element.id == arr[arr.length - 1]) {
+            console.log(arr[arr.length - 2][0] - arr[arr.length - 1][0]);
             Element.setAttribute("id", `${arr[arr.length - 2]}`);
             let x = Number.parseInt(arr[arr.length - 2][0]);
             let y = Number.parseInt(arr[arr.length - 2][2]);
+
+            // Element.animate(
+            //   [
+            //     { transform: `${`translate(${256 * (arrAnimations[arr.length - 2][0] -arrAnimations[arr.length - 1][0])  }px, ${144 * (arrAnimations[arr.length - 2][2] -arrAnimations[arr.length - 1][2])}px)`}`,
+            //   },
+
+            //   ],
+            //   {
+
+            //     duration: 1000,
+            //   }
+            // );
             Element.style.backgroundPositionY = `${720 - y * 144}px`;
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
             Element.disabled = false;
-
           } else if (Element.id == arr[arr.length - 2]) {
             // console.log("pierwszy klikniety element")
             Element.setAttribute("id", `${arr[arr.length - 1]}`);
             // console.log(Element.style.backgroundPositionX);
             let x = Number.parseInt(arr[arr.length - 1][0]);
             let y = Number.parseInt(arr[arr.length - 1][2]);
+
+            Element.disabled = false;
+            // Element.animate(
+            //   [
+
+            //     { transform: `${`translate(${256 * (arrAnimations[arr.length - 1][0] -arrAnimations[arr.length - 2][0])  }px, ${144 * (arrAnimations[arr.length - 1][2] -arrAnimations[arr.length - 2][2])}px)`}`,
+
+            //   },
+
+            //   ],
+            //   {
+            //     // timing options
+            //     duration: 1000,
+            //   }
+            // );
+
             Element.style.backgroundPositionY = `${720 - y * 144}px`;
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
-            Element.disabled = false;
           }
         }
         function isBigEnough(element) {
           return element.id === element.name;
         }
-        // console.log([...button].every(isBigEnough));
         if ([...button].every(isBigEnough)) {
-          console.log("ulozone");
+          // console.log("ulozone");
           setStartCount(false);
           setFinish(true);
+          // setCardTest([]);
         }
       }
     }
@@ -94,6 +127,11 @@ function Game({ image, startGame, setStartCount, setFinish }) {
     startGame === true && (
       <>
         <div className="cardsContainer">{cardtest}</div>
+        <h2>
+          {" "}
+          Time: {Math.floor(currentCount / 60)} :{" "}
+          {currentCount - Math.floor(currentCount / 60) * 60}
+        </h2>
       </>
     )
   );
