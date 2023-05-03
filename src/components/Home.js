@@ -1,6 +1,5 @@
 import Settings from "./Settings";
 import Game from "./Game";
-import Pause from "./Pause";
 import { useState, useEffect } from "react";
 import "../components/scss/main.scss";
 function Home() {
@@ -30,9 +29,6 @@ function Home() {
     const btn = document.querySelectorAll(`.part`);
     const container = document.querySelector(".cardsContainer");
     const image = document.querySelector(".image");
-    // var document = document.getElementById('root');
-    console.log(document);
-    // console.log(container);
     if (pause) {
       for (Element of btn) {
         Element.disabled = true;
@@ -58,7 +54,6 @@ function Home() {
     document.body.style.backgroundImage =
       "linear-gradient(90deg, #A6DAF5 36%, #CCF998 100%)";
   }, []);
-  // console.log(pause)
   return (
     <>
       {!finish && !startGame && (
@@ -72,7 +67,6 @@ function Home() {
           setCardTest={setCardTest}
         />
       )}
-      {/* {!finish && startGame} */}
       <Game
         image={image}
         startGame={startGame}
@@ -83,21 +77,10 @@ function Home() {
         setCardTest={setCardTest}
         setPause={setPause}
         pause={pause}
+        setStartGame={setStartGame}
+        setCount={setCount}
       />
-      {!finish && startGame && (
-        <>
-          {/* <button
-       className="buttonNewGame btnPause"
-       onClick={() => {
-         setStartCount((prevState) => !prevState);
-         setPause((prevState) => !prevState);
-       }}
-     >
-        Pause
-     </button> */}
-        </>
-      )}
-
+   
       {finish && (
         <button
           className="buttonNewGame btnEndGame"

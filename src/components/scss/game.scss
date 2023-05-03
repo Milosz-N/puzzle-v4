@@ -57,7 +57,7 @@ transition: background-color 1s;
   @keyframes loadButton {
     0% {
       opacity: 0;
-      transform: translateY(1000px); 
+      transform: translateX(1000px); 
     }
 100% {
       opacity: 0.5;
@@ -108,7 +108,7 @@ height: 540px;
   top: 30px;
   cursor: pointer;
   font-size: 30px;
-  margin-left: -30px;
+  margin-left: -50px;
 }
 .image{
   width: 600px;
@@ -122,6 +122,10 @@ margin: auto;
 margin-top: 20px;
 // position: relative;
 }
+.items div{
+  gap: 20px
+}
+
 @keyframes load {
   0% {
     opacity: 0;

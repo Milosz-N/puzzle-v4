@@ -11,6 +11,8 @@ function Game({
   setCardTest,
   setPause,
   pause,
+  setStartGame,
+  setCount
 }) {
   var arr = [];
   var arr2 = [];
@@ -20,9 +22,6 @@ function Game({
     if (arr.length == 0 || e.target.id != arr[arr.length - 1]) {
       arr.push(e.target.id);
       arr2.push(e.target.name);
-      // console.log(arr2);
-      // console.log(arr2[0].charAt(0));
-
       e.target.disabled = true;
       if (arr.length % 2 === 0) {
         const disabled = document.querySelectorAll(`.part[disabled]`);
@@ -135,10 +134,14 @@ function Game({
           setStartCount(false);
           setFinish(true);
           const btn = document.querySelectorAll(`.part`);
+          const btnPause = document.querySelectorAll(`.btnPause`);
+          for (Element of btnPause) {
+            Element.disabled = true;
+          }
+
           for (Element of btn) {
             Element.disabled = true;
           }
-          // setCardTest([]);
         }
       }
     }
@@ -183,6 +186,16 @@ function Game({
       }
     }
   }, [startGame]);
+  function newGame() {
+    var txt;
+    if (window.confirm("Are you sure?")) {
+       setStartGame(false);
+            setFinish(false);
+            setCardTest([]);
+            setCount(0);
+            setPause(false)
+    } 
+  }
 
   return (
     startGame === true && (
@@ -206,6 +219,17 @@ function Game({
             >
               Pause
             </button>
+            <button
+          className="buttonNewGame btnPause"
+          disabled={!image}
+          onClick={() => {
+         
+            onclick=newGame()
+          }}
+          
+        >
+          Start new game
+        </button>
           </div>
 
           {pause && (
