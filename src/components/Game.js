@@ -1,5 +1,6 @@
 import "../components/scss/game.scss";
 import React, { useEffect } from "react";
+import Pause from "./Pause";
 function Game({
   image,
   startGame,
@@ -8,39 +9,69 @@ function Game({
   currentCount,
   cardtest,
   setCardTest,
+  setPause,
+  pause,
 }) {
   var arr = [];
-  var arrAnimations = [];
+  var arr2 = [];
 
   function handleSubmit(e) {
     const button = document.querySelectorAll(".part");
     if (arr.length == 0 || e.target.id != arr[arr.length - 1]) {
       arr.push(e.target.id);
-      arrAnimations.push(e.target.name);
-      console.log(arrAnimations);
+      arr2.push(e.target.name);
+      // console.log(arr2);
+      // console.log(arr2[0].charAt(0));
 
       e.target.disabled = true;
       if (arr.length % 2 === 0) {
         const disabled = document.querySelectorAll(`.part[disabled]`);
-
+        // console.log(disabled)
         for (Element of disabled) {
           if (Element.id == arr[arr.length - 1]) {
-            console.log(arr[arr.length - 2][0] - arr[arr.length - 1][0]);
+            // console.log(arr[arr.length - 2][0] - arr[arr.length - 1][0]);
             Element.setAttribute("id", `${arr[arr.length - 2]}`);
             let x = Number.parseInt(arr[arr.length - 2][0]);
             let y = Number.parseInt(arr[arr.length - 2][2]);
 
-            // Element.animate(
-            //   [
-            //     { transform: `${`translate(${256 * (arrAnimations[arr.length - 2][0] -arrAnimations[arr.length - 1][0])  }px, ${144 * (arrAnimations[arr.length - 2][2] -arrAnimations[arr.length - 1][2])}px)`}`,
-            //   },
+            Element.animate(
+              [
+                {
+                  transform: `${`translate(${
+                    (Number.parseInt(arr2[arr2.length - 2].charAt(0)) -
+                      Number.parseInt(arr2[arr2.length - 1].charAt(0))) *
+                    256
+                  }px,${
+                    (Number.parseInt(arr2[arr2.length - 2].charAt(2)) -
+                      Number.parseInt(arr2[arr2.length - 1].charAt(2))) *
+                    144
+                  }px)`}`,
+                },
 
-            //   ],
-            //   {
-
-            //     duration: 1000,
-            //   }
-            // );
+                { transform: "translate(0)" },
+              ],
+              {
+                duration:
+                  Math.pow(
+                    Math.pow(
+                      Math.abs(
+                        Number.parseInt(arr2[arr2.length - 2].charAt(2)) -
+                          Number.parseInt(arr2[arr2.length - 1].charAt(2))
+                      ),
+                      2
+                    ) +
+                      Math.pow(
+                        Math.abs(
+                          Number.parseInt(arr2[arr2.length - 2].charAt(0)) -
+                            Number.parseInt(arr2[arr2.length - 1].charAt(0))
+                        ),
+                        2
+                      ),
+                    1 / 2
+                  ) * 100,
+                iterations: 1,
+              }
+            );
             Element.style.backgroundPositionY = `${720 - y * 144}px`;
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
             Element.disabled = false;
@@ -52,20 +83,46 @@ function Game({
             let y = Number.parseInt(arr[arr.length - 1][2]);
 
             Element.disabled = false;
-            // Element.animate(
-            //   [
 
-            //     { transform: `${`translate(${256 * (arrAnimations[arr.length - 1][0] -arrAnimations[arr.length - 2][0])  }px, ${144 * (arrAnimations[arr.length - 1][2] -arrAnimations[arr.length - 2][2])}px)`}`,
+            Element.animate(
+              [
+                {
+                  transform: `${`translate(${
+                    (Number.parseInt(arr2[arr2.length - 1].charAt(0)) -
+                      Number.parseInt(arr2[arr2.length - 2].charAt(0))) *
+                    256
+                  }px,${
+                    (Number.parseInt(arr2[arr2.length - 1].charAt(2)) -
+                      Number.parseInt(arr2[arr2.length - 2].charAt(2))) *
+                    144
+                  }px)`}`,
+                },
 
-            //   },
-
-            //   ],
-            //   {
-            //     // timing options
-            //     duration: 1000,
-            //   }
-            // );
-
+                { transform: "translate(0)" },
+              ],
+              {
+                duration:
+                  Math.pow(
+                    Math.pow(
+                      Math.abs(
+                        Number.parseInt(arr2[arr2.length - 2].charAt(2)) -
+                          Number.parseInt(arr2[arr2.length - 1].charAt(2))
+                      ),
+                      2
+                    ) +
+                      Math.pow(
+                        Math.abs(
+                          Number.parseInt(arr2[arr2.length - 2].charAt(0)) -
+                            Number.parseInt(arr2[arr2.length - 1].charAt(0))
+                        ),
+                        2
+                      ),
+                    1 / 2
+                  ) * 100,
+                iterations: 1,
+              }
+            );
+            // console.log( Math.pow(Math.pow(Math.abs(Number.parseInt(arr2[arr2.length-2].charAt(2)) - Number.parseInt(arr2[arr2.length-1].charAt(2))), 2) + Math.pow(Math.abs(Number.parseInt(arr2[arr2.length-2].charAt(0)) - Number.parseInt(arr2[arr2.length-1].charAt(0))), 2),1/2) * 100,)
             Element.style.backgroundPositionY = `${720 - y * 144}px`;
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
           }
@@ -77,6 +134,10 @@ function Game({
           // console.log("ulozone");
           setStartCount(false);
           setFinish(true);
+          const btn = document.querySelectorAll(`.part`);
+          for (Element of btn) {
+            Element.disabled = true;
+          }
           // setCardTest([]);
         }
       }
@@ -127,11 +188,36 @@ function Game({
     startGame === true && (
       <>
         <div className="cardsContainer">{cardtest}</div>
-        <h2>
-          {" "}
-          Time: {Math.floor(currentCount / 60)} :{" "}
-          {currentCount - Math.floor(currentCount / 60) * 60}
-        </h2>
+        <div className="items">
+          <img src={`${image}`} className="image"></img>
+          <div>
+            <h2>
+              {" "}
+              Time: {Math.floor(currentCount / 60)} :{" "}
+              {currentCount - Math.floor(currentCount / 60) * 60}
+            </h2>
+
+            <button
+              className="buttonNewGame btnPause"
+              onClick={() => {
+                setStartCount((prevState) => !prevState);
+                setPause((prevState) => !prevState);
+              }}
+            >
+              Pause
+            </button>
+          </div>
+
+          {pause && (
+            <>
+              <Pause
+                image={image}
+                setPause={setPause}
+                setStartCount={setStartCount}
+              />
+            </>
+          )}
+        </div>
       </>
     )
   );

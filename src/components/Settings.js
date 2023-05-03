@@ -10,8 +10,7 @@ function Settings({
   setCardTest,
 }) {
   return (
-    <>
-      <>
+    
         <div className="containerSettings">
           {images.map((i) => (
             <label
@@ -40,9 +39,7 @@ function Settings({
             Start game
           </button>
         </div>
-      </>
-      <></>
-    </>
+   
   );
 }
 

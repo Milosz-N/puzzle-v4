@@ -1,5 +1,6 @@
 import Settings from "./Settings";
 import Game from "./Game";
+import Pause from "./Pause";
 import { useState, useEffect } from "react";
 import "../components/scss/main.scss";
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
   const [currentCount, setCount] = useState(0);
   const [startCount, setStartCount] = useState(false);
   const [finish, setFinish] = useState(false);
+  const [pause, setPause] = useState(false);
   const timer = () => setCount(currentCount + 1);
   useEffect(() => {
     if (startCount) {
@@ -24,12 +26,39 @@ function Home() {
       return () => clearInterval(myInterval);
     }
   }, [startCount]);
+  useEffect(() => {
+    const btn = document.querySelectorAll(`.part`);
+    const container = document.querySelector(".cardsContainer");
+    const image = document.querySelector(".image");
+    // var document = document.getElementById('root');
+    console.log(document);
+    // console.log(container);
+    if (pause) {
+      for (Element of btn) {
+        Element.disabled = true;
+      }
+      container.classList.add("opacity");
+      image.classList.add("opacity");
+      container.classList.remove("animation");
+      image.classList.remove("animation");
+    } else {
+      for (Element of btn) {
+        Element.disabled = false;
+      }
+      if (container !== null && container.classList.contains("opacity")) {
+        container.classList.remove("opacity");
+        image.classList.remove("opacity");
+        container.classList.add("animation");
+        image.classList.add("animation");
+      }
+    }
+  }, [pause]);
 
   useEffect(() => {
     document.body.style.backgroundImage =
       "linear-gradient(90deg, #A6DAF5 36%, #CCF998 100%)";
   }, []);
-
+  // console.log(pause)
   return (
     <>
       {!finish && !startGame && (
@@ -43,7 +72,7 @@ function Home() {
           setCardTest={setCardTest}
         />
       )}
-      {!finish && startGame}
+      {/* {!finish && startGame} */}
       <Game
         image={image}
         startGame={startGame}
@@ -52,15 +81,23 @@ function Home() {
         currentCount={currentCount}
         cardtest={cardtest}
         setCardTest={setCardTest}
+        setPause={setPause}
+        pause={pause}
       />
-      {/* <button
-        className="btn btn-default"
-        onClick={() => {
-          setStartCount((prevState) => !prevState);
-        }}
-      >
-         button do pauzy
-      </button> */}
+      {!finish && startGame && (
+        <>
+          {/* <button
+       className="buttonNewGame btnPause"
+       onClick={() => {
+         setStartCount((prevState) => !prevState);
+         setPause((prevState) => !prevState);
+       }}
+     >
+        Pause
+     </button> */}
+        </>
+      )}
+
       {finish && (
         <button
           className="buttonNewGame btnEndGame"
@@ -75,6 +112,7 @@ function Home() {
           Start new game
         </button>
       )}
+      <></>
     </>
   );
 }
