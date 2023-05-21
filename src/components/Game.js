@@ -12,10 +12,10 @@ function Game({
   setPause,
   pause,
   setStartGame,
-  setCount
+  setCount,
 }) {
-  var arr = [];
-  var arr2 = [];
+  var arr = []; //id
+  var arr2 = []; //name
 
   function handleSubmit(e) {
     const button = document.querySelectorAll(".part");
@@ -25,10 +25,8 @@ function Game({
       e.target.disabled = true;
       if (arr.length % 2 === 0) {
         const disabled = document.querySelectorAll(`.part[disabled]`);
-        // console.log(disabled)
         for (Element of disabled) {
           if (Element.id == arr[arr.length - 1]) {
-            // console.log(arr[arr.length - 2][0] - arr[arr.length - 1][0]);
             Element.setAttribute("id", `${arr[arr.length - 2]}`);
             let x = Number.parseInt(arr[arr.length - 2][0]);
             let y = Number.parseInt(arr[arr.length - 2][2]);
@@ -46,7 +44,6 @@ function Game({
                     144
                   }px)`}`,
                 },
-
                 { transform: "translate(0)" },
               ],
               {
@@ -75,13 +72,9 @@ function Game({
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
             Element.disabled = false;
           } else if (Element.id == arr[arr.length - 2]) {
-            // console.log("pierwszy klikniety element")
             Element.setAttribute("id", `${arr[arr.length - 1]}`);
-            // console.log(Element.style.backgroundPositionX);
             let x = Number.parseInt(arr[arr.length - 1][0]);
             let y = Number.parseInt(arr[arr.length - 1][2]);
-
-            Element.disabled = false;
 
             Element.animate(
               [
@@ -121,9 +114,9 @@ function Game({
                 iterations: 1,
               }
             );
-            // console.log( Math.pow(Math.pow(Math.abs(Number.parseInt(arr2[arr2.length-2].charAt(2)) - Number.parseInt(arr2[arr2.length-1].charAt(2))), 2) + Math.pow(Math.abs(Number.parseInt(arr2[arr2.length-2].charAt(0)) - Number.parseInt(arr2[arr2.length-1].charAt(0))), 2),1/2) * 100,)
             Element.style.backgroundPositionY = `${720 - y * 144}px`;
             Element.style.backgroundPositionX = `${1280 - x * 256}px`;
+            Element.disabled = false;
           }
         }
         function isBigEnough(element) {
@@ -187,14 +180,13 @@ function Game({
     }
   }, [startGame]);
   function newGame() {
-    var txt;
     if (window.confirm("Are you sure?")) {
-       setStartGame(false);
-            setFinish(false);
-            setCardTest([]);
-            setCount(0);
-            setPause(false)
-    } 
+      setStartGame(false);
+      setFinish(false);
+      setCardTest([]);
+      setCount(0);
+      setPause(false);
+    }
   }
 
   return (
@@ -220,16 +212,14 @@ function Game({
               Pause
             </button>
             <button
-          className="buttonNewGame btnPause"
-          disabled={!image}
-          onClick={() => {
-         
-            onclick=newGame()
-          }}
-          
-        >
-          Start new game
-        </button>
+              className="buttonNewGame btnPause"
+              disabled={!image}
+              onClick={() => {
+                onclick = newGame();
+              }}
+            >
+              Start new game
+            </button>
           </div>
 
           {pause && (

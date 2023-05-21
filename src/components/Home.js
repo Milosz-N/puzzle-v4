@@ -12,11 +12,11 @@ function Home() {
   );
   const [image, setImage] = useState(undefined);
   const [startGame, setStartGame] = useState(false);
-  const [currentCount, setCount] = useState(0);
-  const [startCount, setStartCount] = useState(false);
+  const [currentCount, setCount] = useState(0); //licznik czasu
+  const [startCount, setStartCount] = useState(false); //start stop na liczeniu czasu
   const [finish, setFinish] = useState(false);
   const [pause, setPause] = useState(false);
-  const timer = () => setCount(currentCount + 1);
+  // const timer = () => setCount(currentCount + 1);
   useEffect(() => {
     if (startCount) {
       const myInterval = setInterval(() => {
@@ -64,7 +64,6 @@ function Home() {
           setStartGame={setStartGame}
           setStartCount={setStartCount}
           setFinish={setFinish}
-          setCardTest={setCardTest}
         />
       )}
       <Game
@@ -80,7 +79,7 @@ function Home() {
         setStartGame={setStartGame}
         setCount={setCount}
       />
-   
+
       {finish && (
         <button
           className="buttonNewGame btnEndGame"
